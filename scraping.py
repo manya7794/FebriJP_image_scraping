@@ -22,7 +22,6 @@ def driver_link(link: str):
         options=options, service=ChromeService(ChromeDriverManager().install())
     )
     driver.get(link)
-    print(type(driver))
     return driver
 
 
@@ -61,6 +60,20 @@ def get_pictures(driver: webdriver, link: str):
         link (str): Link of the article
     """
     define_path(link)
+
+    # Picture in the banner
+    try:
+        picture = driver.find_element(By.XPATH, "/html/body/div[1]/div[3]/img")
+        # download the image
+        image_name = picture.get_attribute("src").split("/")[-1]
+        print(image_name)
+        urllib.request.urlretrieve(picture.get_attribute("src"), image_name)
+    except Exception:
+        print(
+            "No element located at the banner emplacement",
+        )
+
+    # Pictures in figure elements
     i = 0
     while i < 30:
         try:
@@ -69,6 +82,22 @@ def get_pictures(driver: webdriver, link: str):
                 "/html/body/div[1]/div[4]/div/div[1]/div[1]/div[3]/div[1]/div["
                 + str(i)
                 + "]/figure/img",
+            )
+            # download the image
+            image_name = picture.get_attribute("src").split("/")[-1]
+            print(image_name)
+            urllib.request.urlretrieve(picture.get_attribute("src"), image_name)
+        except Exception:
+            print("No element located at emplacement", i)
+        i += 1
+
+    # Picture in img elements
+    i = 0
+    while i < 30:
+        try:
+            picture = driver.find_element(
+                By.XPATH,
+                "//*[@id='blocks_general_field']/div[" + str(i) + "]/img",
             )
             # download the image
             image_name = picture.get_attribute("src").split("/")[-1]
