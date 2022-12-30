@@ -1,3 +1,4 @@
+import threading
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 import urllib.request
@@ -52,6 +53,44 @@ def define_path(link: str):
     os.chdir(link.split("/")[-2])
 
 
+def get_pictures_from_figure(driver):
+    # Pictures in figure elements
+    i = 0
+    while i < 30:
+        try:
+            picture = driver.find_element(
+                By.XPATH,
+                "/html/body/div[1]/div[4]/div/div[1]/div[1]/div[3]/div[1]/div["
+                + str(i)
+                + "]/figure/img",
+            )
+            # download the image
+            image_name = picture.get_attribute("src").split("/")[-1]
+            print("Downloading", image_name)
+            urllib.request.urlretrieve(picture.get_attribute("src"), image_name)
+        except Exception:
+            pass
+        i += 1
+
+
+def get_pictures_from_img(driver):
+    # Picture in img elements
+    i = 0
+    while i < 30:
+        try:
+            picture = driver.find_element(
+                By.XPATH,
+                "//*[@id='blocks_general_field']/div[" + str(i) + "]/img",
+            )
+            # download the image
+            image_name = picture.get_attribute("src").split("/")[-1]
+            print("Downloading", image_name)
+            urllib.request.urlretrieve(picture.get_attribute("src"), image_name)
+        except Exception:
+            pass
+        i += 1
+
+
 def get_pictures(driver: webdriver, link: str):
     """Download of all pics in the article in a folder named after the article url
 
@@ -66,43 +105,18 @@ def get_pictures(driver: webdriver, link: str):
         picture = driver.find_element(By.XPATH, "/html/body/div[1]/div[3]/img")
         # download the image
         image_name = picture.get_attribute("src").split("/")[-1]
-        print(image_name)
+        print("Downloading", image_name)
         urllib.request.urlretrieve(picture.get_attribute("src"), image_name)
     except Exception:
         print(
             "No element located at the banner emplacement",
         )
 
-    # Pictures in figure elements
-    i = 0
-    while i < 30:
-        try:
-            picture = driver.find_element(
-                By.XPATH,
-                "/html/body/div[1]/div[4]/div/div[1]/div[1]/div[3]/div[1]/div["
-                + str(i)
-                + "]/figure/img",
-            )
-            # download the image
-            image_name = picture.get_attribute("src").split("/")[-1]
-            print(image_name)
-            urllib.request.urlretrieve(picture.get_attribute("src"), image_name)
-        except Exception:
-            print("No element located at emplacement", i)
-        i += 1
+    t1 = threading.Thread(target=get_pictures_from_figure, args=(driver,))
+    t2 = threading.Thread(target=get_pictures_from_img, args=(driver,))
 
-    # Picture in img elements
-    i = 0
-    while i < 30:
-        try:
-            picture = driver.find_element(
-                By.XPATH,
-                "//*[@id='blocks_general_field']/div[" + str(i) + "]/img",
-            )
-            # download the image
-            image_name = picture.get_attribute("src").split("/")[-1]
-            print(image_name)
-            urllib.request.urlretrieve(picture.get_attribute("src"), image_name)
-        except Exception:
-            print("No element located at emplacement", i)
-        i += 1
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()

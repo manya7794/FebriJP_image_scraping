@@ -10,9 +10,11 @@ def main(link=None, file=None):
         file (str, optional): Path to the file containing links of multiple febri pages. Defaults to None.
     """
     if link is not None:
+        print("Scraping is starting for", link)
         driver = scraping.driver_link(link)
         scraping.get_pictures(driver, link)
         driver.quit()
+        print("Scraping has finished!!!")
 
 
 if __name__ == "__main__":
