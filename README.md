@@ -1,4 +1,5 @@
 # Downloading images of articles on the Febri.jp website
+[![Python application](https://github.com/manya7794/FebriJP_image_scraping/actions/workflows/python-app.yml/badge.svg)](https://github.com/manya7794/FebriJP_image_scraping/actions/workflows/python-app.yml)
 
 The purpose of this script is to allow you to download the photos available on the articles of Febri.jp automatically. 
 
