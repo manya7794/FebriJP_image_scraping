@@ -9,7 +9,7 @@ The purpose of this script is to allow you to download the photos available on t
 
 Download the project to your directory via a terminal by entering the following command:
 ```
-git clone https://github.com/easterbuunny/Jeu_Python.git
+git clone https://github.com/manya7794/FebriJP_image_scraping.git
 ```
 Make sure you have Python 3.9 or higher installed on your computer and then run the following command in a terminal opened in the folder containing the project:
 ```
