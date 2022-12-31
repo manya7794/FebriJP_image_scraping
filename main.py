@@ -4,7 +4,6 @@ import scraping
 from concurrent.futures import ThreadPoolExecutor
 
 
-
 def main(link=None, file=None):
     """Switch between link mode or file mode
 
@@ -21,7 +20,6 @@ def main(link=None, file=None):
         driver = scraping.driver_link(link)
         scraping.get_pictures(driver, link)
         driver.quit()
-
 
     # File case
     if file is not None:

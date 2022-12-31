@@ -1,11 +1,9 @@
-
 import threading
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 import urllib.request
 from selenium.webdriver.common.by import By
 import os
-
 
 
 def driver_init():
@@ -19,6 +17,7 @@ def driver_init():
     options.add_experimental_option("excludeSwitches", ["enable-logging"])
     driver = webdriver.Chrome(options=options, executable_path="chomedriver.exe")
     return driver
+
 
 def driver_link(link: str):
     """Open the driver on the specified link and return it
@@ -37,7 +36,6 @@ def driver_link(link: str):
 
     driver.get(link)
     return driver
-
 
 
 def check_pics_folder():
@@ -76,7 +74,7 @@ def define_path(link: str):
         print("Directory %s already exists" % (link.split("/")[-2]))
     except OSError as error:
         print(error)
-        
+
     return download_folder + "/"
 
 
@@ -182,4 +180,3 @@ def get_pictures(driver: webdriver, link: str):
         t2.join()
     except Exception as e:
         print(e)
-
