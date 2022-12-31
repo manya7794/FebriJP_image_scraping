@@ -1,9 +1,11 @@
+
 import threading
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 import urllib.request
 from selenium.webdriver.common.by import By
 import os
+
 
 
 def driver_init():
@@ -18,7 +20,6 @@ def driver_init():
     driver = webdriver.Chrome(options=options, executable_path="chomedriver.exe")
     return driver
 
-
 def driver_link(link: str):
     """Open the driver on the specified link and return it
 
@@ -31,17 +32,22 @@ def driver_link(link: str):
     options = webdriver.ChromeOptions()
     options.headless = True
     options.add_experimental_option("excludeSwitches", ["enable-logging"])
+
     driver = webdriver.Chrome(options=options, executable_path="chomedriver.exe")
+
     driver.get(link)
     return driver
 
 
+
 def check_pics_folder():
     """Checking of pics folder existence, create it if inexistant"""
+
     # Creation of the pics folder
     try:
         os.mkdir("pics")
     except FileExistsError:
+
         pass
     except OSError as error:
         print(error)
@@ -65,11 +71,12 @@ def define_path(link: str):
     download_folder = link.split("/")[-2]
     try:
         os.mkdir(download_folder)
+
     except FileExistsError:
         print("Directory %s already exists" % (link.split("/")[-2]))
     except OSError as error:
         print(error)
-
+        
     return download_folder + "/"
 
 
@@ -80,6 +87,7 @@ def get_pictures_from_figure(driver, downloading_path):
         driver (webdriver): Driver created by Selenium
         downloading_path (str): Path to download folder
     """
+
     # Pictures in figure elements
     i = 0
     while i < 30:
@@ -174,3 +182,4 @@ def get_pictures(driver: webdriver, link: str):
         t2.join()
     except Exception as e:
         print(e)
+

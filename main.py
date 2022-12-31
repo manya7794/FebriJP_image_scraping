@@ -1,6 +1,8 @@
 import argparse
 import scraping
+
 from concurrent.futures import ThreadPoolExecutor
+
 
 
 def main(link=None, file=None):
@@ -10,13 +12,16 @@ def main(link=None, file=None):
         link (str, optional): Link to Febri Page you want to get the images. Defaults to None.
         file (str, optional): Path to the file containing links of multiple febri pages. Defaults to None.
     """
+
     # Link case
     if link is not None:
         scraping.check_pics_folder()
         print("Scraping is starting for", link)
+
         driver = scraping.driver_link(link)
         scraping.get_pictures(driver, link)
         driver.quit()
+
 
     # File case
     if file is not None:

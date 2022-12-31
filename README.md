@@ -16,6 +16,7 @@ Make sure you have Python 3.9 or higher installed on your computer and then run 
 pip install -r .\requirements.txt
 ```
 
+
 You will need to download chromedriver and drop the file in the project folder. You can download it at this adress :
 
 https://chromedriver.chromium.org/downloads
