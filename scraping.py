@@ -44,7 +44,6 @@ def check_pics_folder():
     try:
         os.mkdir("pics")
     except FileExistsError:
-
         pass
     except OSError as error:
         print(error)
