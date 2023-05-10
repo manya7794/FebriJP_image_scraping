@@ -11,8 +11,10 @@ Download the project to your directory via a terminal by entering the following 
 ```
 git clone https://github.com/manya7794/FebriJP_image_scraping.git
 ```
-Make sure you have Python 3.9 or higher installed on your computer and then run the following command in a terminal opened in the folder containing the project:
+Make sure you have Python 3.9 or higher installed on your computer and then run the following commands in a terminal opened in the folder containing the project:
 ```
+python -m venv venv
+.\venv\Scripts\activate
 pip install -r .\requirements.txt
 ```
 

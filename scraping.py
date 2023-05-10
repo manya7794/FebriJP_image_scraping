@@ -1,6 +1,5 @@
 import threading
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
 import urllib.request
 from selenium.webdriver.common.by import By
 import os
